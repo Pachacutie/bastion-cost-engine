@@ -1,7 +1,7 @@
 # Security Review — BASTION Cost Engine
 
 **Date:** 2026-04-02
-**Reviewer:** MASON
+**Reviewer:** Internal
 
 ## Checklist
 

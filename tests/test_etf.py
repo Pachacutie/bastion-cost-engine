@@ -27,6 +27,11 @@ class TestEtfAtMonth:
         expected_balance = 2000 * (60 - 6) / 60
         assert result == pytest.approx(expected_balance + 300)
 
+    def test_vivint_month12_still_year1(self):
+        result = etf_at_month("vivint", 0, 60, 12, equipment_total=2000)
+        expected_balance = 2000 * (60 - 12) / 60
+        assert result == pytest.approx(expected_balance + 300)
+
     def test_vivint_year2_penalty(self):
         result = etf_at_month("vivint", 0, 60, 18, equipment_total=2000)
         expected_balance = 2000 * (60 - 18) / 60

@@ -6,6 +6,7 @@ Implements per-provider ETF formulas, timeline generation, and optimal exit dete
 from __future__ import annotations
 
 from bastion_cost.data.providers import MONITORING
+from bastion_cost.engine.calculator import true_monthly_cost
 
 
 def etf_at_month(
@@ -36,7 +37,7 @@ def etf_at_month(
     if provider == "vivint":
         equip = equipment_total or 0
         balance = equip * remaining / contract_months
-        penalty = 300 if month < 12 else 150
+        penalty = 300 if month <= 12 else 150
         return balance + penalty
 
     if provider == "cove":
@@ -77,7 +78,7 @@ def optimal_exit_month(
     if contract_months == 0:
         return None
 
-    monthly = MONITORING[provider]["tiers"][tier_index]["monthly"]
+    monthly = true_monthly_cost(provider, tier_index, {})["total"]
 
     for month in range(1, contract_months + 1):
         etf = etf_at_month(provider, tier_index, contract_months, month, equipment_total)
