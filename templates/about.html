@@ -1,9 +1,8 @@
 {% extends "base.html" %}
-{% block title %}About Our Data — BASTION Cost Engine{% endblock %}
+{% block title %}About — BASTION Cost Engine{% endblock %}
 {% block content %}
-<h1>About Our Data</h1>
 
-<h2>Methodology</h2>
+<h2>About Our Data</h2>
 <p>Pricing sourced from provider websites, subscriber agreements, and industry review sites as of April 2026. Equipment prices reflect current retail pricing from each provider's online store. Hidden fees identified from subscriber agreement fine print and customer reports.</p>
 
 <p>Generic retail prices use the cheapest functionally equivalent device available from major retailers (Amazon, Home Depot). DIY comparison assumes Zigbee/Z-Wave devices with a Hubitat hub and free self-monitoring.</p>
@@ -16,7 +15,7 @@
     <li>This tool does not account for professional monitoring quality differences between providers.</li>
 </ul>
 
-<h1 id="your-data">About Your Data</h1>
+<h2 id="your-data">About Your Data</h2>
 <p>This tool collects nothing. Zero.</p>
 <ul>
     <li>No accounts. No sign-ups. No cookies.</li>
@@ -28,4 +27,6 @@
 
 <h2>Report Outdated Pricing</h2>
 <p>Found a price that's changed? <a href="https://github.com/Pachacutie/bastion-cost-engine/issues/new?title=Outdated+pricing:+[Provider]" target="_blank" rel="noopener">Report it on GitHub</a>.</p>
+
+<div class="about-link"><a href="/">&larr; Back to Cost Engine</a></div>
 {% endblock %}

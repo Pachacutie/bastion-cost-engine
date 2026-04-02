@@ -25,6 +25,11 @@ def create_app() -> Flask:
         static_folder=os.path.join(os.path.dirname(__file__), "..", "..", "static"),
     )
     app.secret_key = os.urandom(16)
+    hosted = os.environ.get("BASTION_HOSTED", "").lower() in ("1", "true", "yes")
+
+    @app.context_processor
+    def inject_hosted():
+        return {"hosted": hosted}
 
     @app.route("/")
     def index():
