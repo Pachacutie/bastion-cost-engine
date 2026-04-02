@@ -18,11 +18,24 @@ from .engine.etf import etf_timeline, optimal_exit_month
 from .engine.comparison import compare_all
 
 
+def _find_root() -> str:
+    """Find project root (works both locally and in Docker)."""
+    # Local dev: src/bastion_cost/web.py → ../../
+    candidate = os.path.join(os.path.dirname(__file__), "..", "..")
+    if os.path.isdir(os.path.join(candidate, "templates")):
+        return os.path.abspath(candidate)
+    # Docker: templates at /app/templates
+    if os.path.isdir("/app/templates"):
+        return "/app"
+    return os.path.abspath(candidate)
+
+
 def create_app() -> Flask:
+    root = _find_root()
     app = Flask(
         __name__,
-        template_folder=os.path.join(os.path.dirname(__file__), "..", "..", "templates"),
-        static_folder=os.path.join(os.path.dirname(__file__), "..", "..", "static"),
+        template_folder=os.path.join(root, "templates"),
+        static_folder=os.path.join(root, "static"),
     )
     app.secret_key = os.urandom(16)
     hosted = os.environ.get("BASTION_HOSTED", "").lower() in ("1", "true", "yes")
