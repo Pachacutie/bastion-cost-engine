@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}BASTION Cost Engine — Find out what you're really paying for home security{% endblock %}
+{% block content %}
+<h1>Find out what you're really paying for home security.</h1>
+<form id="provider-form">
+    <label for="provider">Provider</label>
+    <select name="provider" id="provider">
+        <option value="">Select your provider...</option>
+        {% for slug, data in providers.items() %}
+        <option value="{{ slug }}">{{ provider_names[slug] }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="tier">Plan</label>
+    <select name="tier" id="tier" disabled>
+        <option value="">Select a provider first</option>
+    </select>
+
+    <label for="contract">Contract Length</label>
+    <select name="contract" id="contract" disabled>
+        <option value="">Select a provider first</option>
+    </select>
+
+    <label for="installation">Installation</label>
+    <select name="installation" id="installation">
+        <option value="diy">DIY</option>
+        <option value="professional">Professional</option>
+    </select>
+
+    <button type="submit" id="next-btn" disabled>Next: Build Your System</button>
+</form>
+
+<script>
+var PROVIDERS = {{ providers | tojson }};
+var providerSelect = document.getElementById('provider');
+var tierSelect = document.getElementById('tier');
+var contractSelect = document.getElementById('contract');
+var nextBtn = document.getElementById('next-btn');
+
+providerSelect.addEventListener('change', function() {
+    var slug = this.value;
+    tierSelect.textContent = '';
+    contractSelect.textContent = '';
+
+    if (!slug || !PROVIDERS[slug]) {
+        tierSelect.disabled = true;
+        contractSelect.disabled = true;
+        nextBtn.disabled = true;
+        return;
+    }
+
+    var data = PROVIDERS[slug];
+    data.tiers.forEach(function(tier, i) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = tier.name + ' ($' + tier.monthly.toFixed(2) + '/mo)';
+        tierSelect.appendChild(opt);
+    });
+    tierSelect.disabled = false;
+
+    data.contract_months.forEach(function(m) {
+        var opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = m === 0 ? 'Month-to-month' : m + ' months';
+        contractSelect.appendChild(opt);
+    });
+    contractSelect.disabled = false;
+    nextBtn.disabled = false;
+});
+
+document.getElementById('provider-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var params = new URLSearchParams({
+        provider: providerSelect.value,
+        tier: tierSelect.value,
+        contract: contractSelect.value,
+        installation: document.getElementById('installation').value,
+    });
+    window.location.href = '/builder?' + params.toString();
+});
+</script>
+{% endblock %}
