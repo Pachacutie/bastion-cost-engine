@@ -95,7 +95,7 @@ EQUIPMENT = {
         "generic_retail": 10,
         "generic_name": "Sonoff SNZB-03 Zigbee",
         "providers": {
-            "frontpoint": 74.99, "adt": 20.00, "ring": 35.00,
+            "frontpoint": 74.99, "adt": 30.00, "ring": 35.00,
             "simplisafe": 34.99, "vivint": 50.00, "abode": 39.99, "cove": 50.00,
         },
     },
