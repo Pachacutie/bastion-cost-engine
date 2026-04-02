@@ -15,8 +15,8 @@
     <div class="device-row" data-key="{{ key }}"
          data-provider-price="{{ device.providers[provider] if device.providers[provider] is not none else '' }}"
          data-generic-price="{{ device.generic_retail }}">
-        <span class="device-name">{{ device.generic_name }}</span>
-        <span class="device-category">{{ device.category }}</span>
+        <span class="device-name">{{ device.category }}</span>
+        <span class="device-category">Generic: {{ device.generic_name }}</span>
         {% if device.providers[provider] is none %}
         <span class="not-available">Not available from {{ provider_name }}</span>
         {% else %}
