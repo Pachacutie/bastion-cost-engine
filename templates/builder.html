@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Build Your System — {{ provider_name }}{% endblock %}
+{% block content %}
+<div class="context-bar">
+    <span>{{ provider_name }} — {{ tier.name }} (${{ "%.2f"|format(tier.monthly) }}/mo) —
+    {% if contract == 0 %}Month-to-month{% else %}{{ contract }} months{% endif %}</span>
+    <a href="/?provider={{ provider }}&tier={{ tier_index }}&contract={{ contract }}">Change</a>
+</div>
+
+<h1>Build Your System</h1>
+<p>Add devices to see what you'd pay with {{ provider_name }} vs. generic retail.</p>
+
+<div id="equipment-builder">
+    {% for key, device in equipment.items() %}
+    <div class="device-row" data-key="{{ key }}"
+         data-provider-price="{{ device.providers[provider] if device.providers[provider] is not none else '' }}"
+         data-generic-price="{{ device.generic_retail }}">
+        <span class="device-name">{{ device.category }}</span>
+        <span class="device-category">Generic: {{ device.generic_name }}</span>
+        {% if device.providers[provider] is none %}
+        <span class="not-available">Not available from {{ provider_name }}</span>
+        {% else %}
+        <span class="price-provider">${{ "%.2f"|format(device.providers[provider]) }}</span>
+        <span class="price-generic">${{ "%.2f"|format(device.generic_retail) }} generic</span>
+        <div class="qty-controls">
+            <button type="button" class="qty-minus" data-key="{{ key }}">-</button>
+            <span class="qty-value" id="qty-{{ key }}">0</span>
+            <button type="button" class="qty-plus" data-key="{{ key }}">+</button>
+        </div>
+        <span class="line-total" id="line-{{ key }}">$0.00</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="running-totals">
+    <div>Provider total: <span id="provider-total">$0.00</span></div>
+    <div>Generic total: <span id="generic-total">$0.00</span></div>
+    <div>Current markup: <span id="markup-pct">0%</span></div>
+</div>
+
+<button type="button" id="see-results" disabled>See Results</button>
+
+<script src="{{ url_for('static', filename='builder.js') }}"></script>
+<script>
+initBuilder('{{ provider }}', {{ tier_index }}, {{ contract }}, '{{ installation }}');
+</script>
+{% endblock %}

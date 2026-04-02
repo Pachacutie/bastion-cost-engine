@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BASTION Cost Engine{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/">BASTION Cost Engine</a>
+        <div class="nav-links">
+            <a href="/about">About</a>
+        </div>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        Part of <a href="https://github.com/Pachacutie/BASTION">BASTION</a> — open-source tools for smarter home security decisions.
+    </footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
