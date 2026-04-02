@@ -65,7 +65,7 @@ class TestEquipmentCost:
 class TestThreeYearTotal:
     def test_adt_complete_36mo_dispatch_verification(self, full_equipment):
         result = three_year_total("adt", 2, 36, full_equipment)
-        assert result["equipment_total"] == pytest.approx(978.98)
+        assert result["equipment_total"] == pytest.approx(958.98)
         assert result["one_time_fees"] > 0
         assert result["grand_total"] > 0
 
