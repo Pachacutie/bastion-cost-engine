@@ -182,7 +182,7 @@
         <p class="share-text">
             "I'm paying ${{ "%.2f"|format(total_3yr.grand_total) }} over 3 years for home security.
             The same protection costs ${{ "%.2f"|format(diy.grand_total) }} DIY.
-            That's a {{ "%.0f"|format((total_3yr.grand_total / diy.grand_total - 1) * 100) if diy.grand_total > 0 else '&#8734;' }}% premium."
+            That's a {{ "%.0f"|format((total_3yr.grand_total / diy.grand_total - 1) * 100) if diy.grand_total > 0 else '∞' }}% premium."
         </p>
         <div class="share-url">
             <input type="text" id="share-url-input" value="{{ share_url }}" readonly>

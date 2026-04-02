@@ -68,6 +68,18 @@ providerSelect.addEventListener('change', function() {
     nextBtn.disabled = false;
 });
 
+// Restore state from URL params (back navigation)
+var params = new URLSearchParams(window.location.search);
+if (params.get('provider')) {
+    providerSelect.value = params.get('provider');
+    providerSelect.dispatchEvent(new Event('change'));
+    setTimeout(function() {
+        if (params.get('tier')) tierSelect.value = params.get('tier');
+        if (params.get('contract')) contractSelect.value = params.get('contract');
+        if (params.get('installation')) document.getElementById('installation').value = params.get('installation');
+    }, 0);
+}
+
 document.getElementById('provider-form').addEventListener('submit', function(e) {
     e.preventDefault();
     var params = new URLSearchParams({
