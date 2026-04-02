@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bastion-cost-engine"
+version = "1.0.0"
+description = "Expose the true cost of home security providers"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+]
+web = [
+    "flask>=3.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bastion_cost"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
