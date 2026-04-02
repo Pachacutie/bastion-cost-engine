@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: bastion-cost-engine
+    runtime: docker
+    plan: free
